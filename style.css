@@ -1,0 +1,693 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Inter, Arial, sans-serif;
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 50% -200px, rgba(139,92,246,0.15), transparent),
+    linear-gradient(180deg, #05060f, #020617);
+  color: #e5e7eb;
+  overflow-x: hidden;
+}
+
+
+/* ================= HEADER ================= */
+.hero {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.hero h1 {
+  font-size: 40px;
+  font-weight: 800;
+}
+
+.hero p {
+  margin-top: 8px;
+  opacity: 0.7;
+}
+
+button {
+  appearance: none;
+  border: none;
+  border-radius: 14px;
+  padding: 10px 18px;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: #e5e7eb;
+
+  background:
+    linear-gradient(180deg, #1e1b4b, #0f172a);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.05),
+    0 8px 30px rgba(0,0,0,0.4);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+.hero button {
+  margin-top: 20px;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    0 12px 40px rgba(139,92,246,0.35);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+
+/* ================= CONTAINER ================= */
+.container {
+  max-width: 1650px;
+  margin: auto;
+  padding: 0 32px;
+}
+
+/* ================= SECTIONS ================= */
+section {
+  margin: 80px 0;
+}
+
+h2 {
+  font-size: 26px;
+  margin-bottom: 24px;
+}
+
+/* ================= CLASSEMENT ÉQUIPES ================= */
+.team-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 200px;
+  align-items: center;
+  padding: 26px;
+  margin-bottom: 16px;
+  border-radius: 18px;
+  font-size: 20px;
+  font-weight: 800;
+  overflow: hidden;
+}
+
+.team-name {
+  font-size: 22px;
+}
+
+.team-captain {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.team-score {
+  text-align: right;
+}
+
+/* ================= TABLE HEADER ================= */
+.table-header {
+  display: grid;
+  grid-template-columns:
+    80px
+    420px
+    180px
+    180px
+    220px
+    400px
+    80px;
+
+  padding: 16px 24px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #9ca3af;
+
+  backdrop-filter: blur(6px);
+  background: rgba(255,255,255,0.04);
+  border-radius: 14px;
+  margin-bottom: 14px;
+}
+
+
+
+/* ================= PLAYER ROW ================= */
+.player-row {
+  display: grid;
+  grid-template-columns:
+    80px
+    420px
+    180px
+    180px
+    220px
+    400px
+    80px;
+
+  align-items: center;
+  min-height: 120px;
+  padding: 22px 24px;
+  margin-bottom: 16px;
+  border-radius: 20px;
+  overflow: hidden;
+
+  backdrop-filter: blur(10px);
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+}
+
+
+
+/* ================= TEAM BACKGROUNDS ================= */
+.team-Red {
+  background: linear-gradient(90deg, #3a0b0b, #3a0b0b);
+  border-left: 6px solid #ef4444;
+}
+
+.team-Blue {
+  background: linear-gradient(90deg, #0b1d3a, #0b1d3a);
+  border-left: 6px solid #3b82f6;
+}
+
+.team-Green {
+  background: linear-gradient(90deg, #0b2a1a, #0b2a1a);
+  border-left: 6px solid #22c55e;
+}
+
+/* ================= PLAYER INFO ================= */
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.15);
+}
+
+.player-name {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.team-label {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+/* ================= TEAM TEXT COLORS ================= */
+.team-text-Red { color: #ef4444; }
+.team-text-Blue { color: #3b82f6; }
+.team-text-Green { color: #22c55e; }
+
+/* ================= RANK ================= */
+.rank-text {
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+/* ================= LP ================= */
+.lp-container {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.lp-value {
+  font-size: 14px;
+  font-weight: 800;
+  color: #facc15; /* jaune bien lisible */
+}
+
+
+.lp-bar {
+  flex: 1;
+  height: 10px;
+  background: #1f2937;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.lp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #facc15, #22c55e);
+}
+
+/* ================= STATS ================= */
+.stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  max-width: 400px;   /* ⛔ BLOQUÉ */
+  overflow: hidden;
+}
+
+.stat {
+  text-align: center;
+  min-width: 55px;
+}
+
+.stat span {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.stat small {
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+.win { color: #22c55e; }
+.lose { color: #ef4444; }
+.wr { color: #facc15; }
+
+/* ================= STREAK ================= */
+.streak {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0; /* 🔒 NE POUSSE PLUS */
+}
+
+.streak span {
+  width: 14px;
+  height: 10px;
+  border-radius: 4px;
+  background: #020617;
+}
+
+.streak .win {
+  background: #22c55e;
+}
+
+.streak .lose {
+  background: #ef4444;
+}
+
+/* ================= FOOTER ================= */
+footer {
+  text-align: center;
+  padding: 40px;
+  opacity: 0.5;
+}
+/* ================= RANK ICON ================= */
+.rank {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rank-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+.dpm-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dpm-icon {
+  width: 26px;
+  height: 26px;
+  opacity: 0.85;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.dpm-link:hover .dpm-icon {
+  transform: scale(1.1);
+  opacity: 1;
+}
+.toggle-btn {
+  margin-left: 16px;
+  padding: 6px 14px;
+  font-size: 13px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #1f2937;
+  color: #e5e7eb;
+}
+
+.toggle-btn:hover {
+  background: #374151;
+}
+/* ================= ROLE LEADER ================= */
+.role-block {
+  margin-bottom: 60px;
+}
+
+.role-title {
+  font-size: 22px;
+  margin-bottom: 24px;
+  text-align: center;
+  letter-spacing: 2px;
+  opacity: 0.85;
+}
+
+.role-winner {
+  background: linear-gradient(180deg, #111827, #020617);
+  border-radius: 20px;
+  padding: 28px;
+  text-align: center;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.role-winner-name {
+  font-size: 26px;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+.role-winner-rank {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.role-winner-rank img {
+  width: 64px;
+  height: 64px;
+}
+
+.role-winner-lp {
+  font-size: 20px;
+  font-weight: 800;
+  color: #facc15;
+}
+
+/* ================= ROLE LIST ================= */
+.role-list .player-row {
+  min-height: 70px;
+  font-size: 15px;
+}
+/* ================= PODIUM RÔLES ================= */
+
+.role-block {
+  margin-bottom: 60px;
+}
+
+.role-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+.role-podium {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 24px;
+}
+
+.role-podium-card {
+  width: 220px;
+  padding: 22px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+}
+
+.role-podium-card img.rank-icon {
+  width: 54px;
+  height: 54px;
+  margin: 10px 0;
+}
+
+.medal {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.role-lp {
+  font-weight: 800;
+  color: #facc15;
+}
+
+/* OR */
+.role-podium-card.gold {
+  transform: scale(1.1);
+  box-shadow: 0 0 40px rgba(250,204,21,0.5);
+}
+
+/* ARGENT */
+.role-podium-card.silver {
+  opacity: 0.95;
+}
+
+/* BRONZE */
+.role-podium-card.bronze {
+  opacity: 0.9;
+}
+/* ===== PODIUM ROLES ===== */
+.role-podium {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 28px;
+  margin: 30px 0 50px;
+}
+
+/* BASE */
+.podium-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 22px;
+  border-radius: 20px;
+  min-width: 160px;
+  transition: transform 0.2s ease;
+}
+
+.podium-medal {
+  font-size: 30px;
+  margin-bottom: 6px;
+}
+
+.podium-name {
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.podium-rank {
+  width: 56px;
+  margin-bottom: 6px;
+}
+
+.podium-lp {
+  font-weight: 700;
+  color: #facc15;
+}
+
+/* 🥇 PREMIER (CENTRE) */
+.podium-card.first {
+  transform: scale(1.25);
+  box-shadow: 0 0 40px #facc15aa;
+}
+
+/* 🥈 SECOND (GAUCHE) */
+.podium-card.second {
+  transform: scale(1.05);
+}
+
+/* 🥉 TROISIÈME (DROITE) */
+.podium-card.third {
+  transform: scale(0.95);
+}
+.player-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.player-role {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.08);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.podium-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.podium-player-name {
+  font-size: 18px;
+  font-weight: 900;
+}
+.crown {
+  font-size: 32px;
+  margin-bottom: 4px;
+  animation: crown-float 1.8s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(250,204,21,0.9));
+}
+
+@keyframes crown-float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.reset-btn {
+  background:
+    linear-gradient(180deg, #7f1d1d, #450a0a);
+  color: #fee2e2;
+}
+
+.reset-btn:hover {
+  box-shadow: 0 0 40px rgba(239,68,68,0.6);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.sort-controls,
+.team-filters,
+.role-filters {
+  display: flex;
+  gap: 10px;
+}
+button.active {
+  background:
+    linear-gradient(180deg, #7c3aed, #4c1d95);
+  box-shadow:
+    0 0 0 1px rgba(139,92,246,0.6),
+    0 10px 40px rgba(139,92,246,0.6);
+}
+.sort-controls button,
+.team-filters button,
+.role-filters button {
+  padding: 8px 14px;
+  font-size: 12px;
+}
+/* ===== DROPDOWN RÔLES ===== */
+.sort-controls {
+  position: relative;
+}
+
+.role-filters {
+  position: absolute;
+  top: 110%;
+  left: 0;
+
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+
+  padding: 12px;
+  border-radius: 14px;
+
+  background:
+    linear-gradient(180deg, #0f172a, #020617);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.6);
+
+  z-index: 20;
+  min-width: 160px;
+}
+
+/* visible */
+.role-filters.open {
+  display: flex;
+}
+
+/* boutons du menu */
+.role-filters button {
+  width: 100%;
+  justify-content: center;
+}
+/* ================= LOGO ================= */
+.logo {
+  width: 180px;
+  max-width: 70%;
+  margin: 0 auto 20px;
+  display: block;
+
+  filter: drop-shadow(0 0 25px rgba(139,92,246,0.6));
+}
+.hero {
+  text-align: center;
+  padding: 60px 20px 40px;
+}
+/* ================= MIN RANK ================= */
+.player-minrank {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 6px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.08);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.player-minrank.locked {
+  color: #ef4444;
+}
+
+.player-progress {
+  font-size: 11px;
+  font-weight: 800;
+  margin-left: 6px;
+}
+
+.player-progress.pos {
+  color: #22c55e;
+}
+
+.player-progress.neg {
+  color: #ef4444;
+}
+.last-update {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-bottom: 12px;
+}
+
+/* ===== PODIUM ÉQUIPES ===== */
+
+.podium-first {
+  box-shadow: 0 0 40px rgba(250, 204, 21, 0.7);
+  transform: scale(1.03);
+}
+
+.podium-second {
+  box-shadow: 0 0 30px rgba(209, 213, 219, 0.5);
+}
+
+.podium-third {
+  box-shadow: 0 0 25px rgba(180, 83, 9, 0.5);
+}
+
+
+

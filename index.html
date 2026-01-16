@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kaminari SoloQ Clash 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="hero">
+  <img src="images/logo.png" alt="Kaminari SoloQ Clash" class="logo">
+  <h1>Kaminari SoloQ Clash 2026</h1>
+</header>
+
+<main class="container">
+
+  <!-- ========================= -->
+  <!-- 🏆 CLASSEMENT ÉQUIPES -->
+  <!-- ========================= -->
+  <section>
+    <h2>🏆 Classement des équipes</h2>
+    <div id="teams"></div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- 🎮 CLASSEMENT JOUEURS -->
+  <!-- ========================= -->
+
+    <h2>🎮 Leaderboard joueurs</h2>
+<div id="lastUpdate" class="last-update"></div>
+
+<div class="controls">
+
+  <div class="sort-controls">
+    <button onclick="sortPlayers('lp', this)">LP</button>
+    <button onclick="sortPlayers('winrate', this)">Winrate</button>
+    <button onclick="sortPlayers('games', this)">Games</button>
+    <button onclick="toggleRoleFilters()">Rôle</button>
+
+<div class="role-filters" id="roleFilters">
+    <button onclick="filterRole(null, this)">Tous rôles</button>
+    <button onclick="filterRole('TOP', this)">TOP</button>
+    <button onclick="filterRole('JUNGLE', this)">JUNGLE</button>
+    <button onclick="filterRole('MID', this)">MID</button>
+    <button onclick="filterRole('ADC', this)">ADC</button>
+    <button onclick="filterRole('SUPPORT', this)">SUPPORT</button>
+
+</div>
+
+  </div>
+
+  <div class="team-filters">
+    <button onclick="filterTeam(null, this)">Tous</button>
+    <button onclick="filterTeam('Red', this)">Kaminari</button>
+    <button onclick="filterTeam('Blue', this)">Maxa</button>
+    <button onclick="filterTeam('Green', this)">Slarix</button>
+  </div>
+<button onclick="resetFilters()" class="reset-btn">
+  🔄 Réinitialiser
+</button>
+
+
+</div>
+
+
+    <div class="table-header">
+      <div>#</div>
+      <div>Joueur</div>
+      <div>Équipe</div>
+      <div>Rank</div>
+      <div>LP</div>
+      <div>Stats</div>
+      <div>DPM</div>
+    </div>
+
+    <div id="players"></div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 Kaminari SoloQ Clash
+</footer>
+
+<script>
+/* ========================= */
+/* 🧠 MAPPING ÉQUIPES */
+/* ========================= */
+const TEAM_NAMES = {
+  Red: "Kaminari",
+  Blue: "Maxa",
+  Green: "Slarix"
+};
+const TIER_ORDER = {
+  iron: 1,
+  bronze: 2,
+  silver: 3,
+  gold: 4,
+  platinum: 5,
+  emerald: 6,
+  diamond: 7,
+  master: 8,
+  grandmaster: 9,
+  challenger: 10
+};
+
+const DIVISION_ORDER = {
+  i: 4,
+  ii: 3,
+  iii: 2,
+  iv: 1
+};
+
+/* ========================= */
+/* 🔄 REFRESH GLOBAL */
+/* ========================= */
+async function refresh() {
+  try {
+    const res = await fetch("http://localhost:3000/api/refresh");
+
+    if (!res.ok) {
+      throw new Error("Erreur API");
+    }
+
+    const players = await res.json();
+const now = new Date();
+document.getElementById("lastUpdate").textContent =
+  "Dernière mise à jour : " +
+  now.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+
+    window.lastPlayers = players; // 👈 super important
+
+    applyView();
+    renderTeams(players);
+
+
+  } catch (e) {
+    console.error("Erreur front :", e);
+  }
+}
+
+/* ========================= */
+/* 🏆 CLASSEMENT ÉQUIPES */
+/* ========================= */
+function renderTeams(players) {
+  const teams = {};
+  const teamMVP = {};
+
+  players.forEach(p => {
+    if (!teams[p.team]) {
+      teams[p.team] = {
+        score: 0,
+        captain: TEAM_NAMES[p.team],
+        games: 0,
+        wins: 0,
+        count: 0
+      };
+    }
+
+    // 👑 MVP
+    if (!teamMVP[p.team] || p.score > teamMVP[p.team].score) {
+      teamMVP[p.team] = p;
+    }
+
+    teams[p.team].score += p.score ?? 0;
+    teams[p.team].games += p.games || 0;
+    teams[p.team].wins += p.wins || 0;
+    teams[p.team].count += 1;
+  });
+
+  const sortedTeams = Object.entries(teams)
+    .map(([team, data]) => {
+      const wr = data.games > 0
+        ? Math.round((data.wins / data.games) * 100)
+        : 0;
+
+      return {
+        team,
+        captain: data.captain,
+        score: data.score,
+        games: data.games,
+        wr,
+        count: data.count
+      };
+    })
+    .sort((a, b) => b.score - a.score);
+
+  const container = document.getElementById("teams");
+  container.innerHTML = "";
+
+  sortedTeams.forEach((t, i) => {
+  const podiumClass =
+    i === 0 ? "podium-first" :
+    i === 1 ? "podium-second" :
+    i === 2 ? "podium-third" :
+    "";
+
+  container.innerHTML += `
+    <div class="team-row team-${t.team} ${podiumClass}">
+
+        <div class="pos">#${i + 1}</div>
+        <div>
+          <div class="team-name">${t.captain}</div>
+          <div class="team-captain">
+            ${t.count} joueurs · ${t.games} games · ${t.wr}% WR<br>
+            👑 MVP : ${teamMVP[t.team]?.name}
+          </div>
+        </div>
+        <div class="team-score">${t.score} pts</div>
+      </div>
+    `;
+  });
+}
+
+
+
+
+/* ========================= */
+/* 🎮 CLASSEMENT JOUEURS */
+/* ========================= */
+  function renderPlayers(players) {
+  const container = document.getElementById("players");
+  container.innerHTML = "";
+
+  players.forEach((p, i) => {
+    const progressText =
+      p.score > 0
+        ? `+${p.score} LP`
+        : p.score < 0
+        ? `${p.score} LP`
+        : `0 LP`;
+
+    const showMinRank = p.score < 0;
+    const dpmUrl = `https://dpm.lol/${p.riotId.replace("#", "-")}`;
+
+    const rankIcon =
+      p.rank === "Unranked"
+        ? "ranks/unranked.png"
+        : "ranks/" + p.rank.split(" ")[0].toLowerCase() + ".png";
+
+    container.innerHTML += `
+      <div class="player-row team-${p.team}">
+        <div class="pos">#${i + 1}</div>
+
+        <div class="player-info">
+          <img class="avatar" src="https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/4568.jpg">
+
+          <div class="player-line">
+            <span class="player-name team-text-${p.team}">${p.name}</span>
+            <span class="player-role">${p.role}</span>
+
+            ${showMinRank ? `
+              <span class="player-minrank locked">🔒 ${p.minRank}</span>
+            ` : ``}
+
+            <span class="player-progress ${p.score >= 0 ? 'pos' : 'neg'}">
+              ${progressText}
+            </span>
+          </div>
+        </div>
+
+        <div class="team-label team-text-${p.team}">${TEAM_NAMES[p.team]}</div>
+
+        <div class="rank">
+          <img class="rank-icon" src="${rankIcon}">
+          <span class="rank-text">${p.rank}</span>
+        </div>
+
+        <div class="lp-container">
+          <div class="lp-value">${p.lp} LP</div>
+          <div class="lp-bar">
+            <div class="lp-fill" style="width:${Math.min(p.lp,100)}%"></div>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><span>${p.games}</span><small>G</small></div>
+          <div class="stat win"><span>${p.wins}</span><small>W</small></div>
+          <div class="stat lose"><span>${p.losses}</span><small>L</small></div>
+          <div class="stat wr"><span>${p.winrate}%</span><small>WR</small></div>
+        </div>
+
+        <a class="dpm-link" href="${dpmUrl}" target="_blank">
+          <img src="https://dpm.lol/favicon.ico" class="dpm-icon">
+        </a>
+      </div>
+    `;
+  });
+}
+
+let currentPlayers = [];
+let currentTeam = null;
+let currentSort = "lp";
+let currentRole = null;
+
+function applyView() {
+  let list = [...window.lastPlayers];
+
+  // filtre équipe
+  if (currentTeam) {
+    list = list.filter(p => p.team === currentTeam);
+  }
+
+  // filtre rôle
+  if (currentRole) {
+    list = list.filter(p => p.role === currentRole);
+  }
+
+  // TRI PAR RANK > DIVISION > LP
+  if (currentSort === "lp") {
+    list.sort((a, b) => {
+      const ra = parseRank(a.rank);
+      const rb = parseRank(b.rank);
+
+      if (ra.tier !== rb.tier) {
+        return rb.tier - ra.tier;
+      }
+
+      if (ra.division !== rb.division) {
+        return rb.division - ra.division;
+      }
+
+      return b.lp - a.lp;
+    });
+  }
+
+  if (currentSort === "winrate") {
+    list.sort((a, b) => b.winrate - a.winrate);
+  }
+
+  if (currentSort === "games") {
+    list.sort((a, b) => b.games - a.games);
+  }
+
+  currentPlayers = list;
+  renderPlayers(currentPlayers);
+}
+
+function filterTeam(team, btn) {
+  // 🔁 Si on reclique sur le même filtre → on l'enlève
+  if (currentTeam === team) {
+    currentTeam = null;
+    setActiveButton(".team-filters button", null);
+  } else {
+    currentTeam = team;
+    setActiveButton(".team-filters button", btn);
+  }
+
+  applyView();
+}
+
+function toggleRoleFilters() {
+  const menu = document.getElementById("roleFilters");
+  menu.classList.toggle("open");
+}
+
+function filterRole(role, btn) {
+  // 🔁 Toggle rôle
+  if (currentRole === role) {
+    currentRole = null;
+    setActiveButton(".role-filters button", null);
+  } else {
+    currentRole = role;
+    setActiveButton(".role-filters button", btn);
+  }
+
+  applyView();
+  document.getElementById("roleFilters").classList.remove("open");
+}
+
+function sortPlayers(type, btn) {
+  if (currentSort === type) {
+    currentSort = "lp"; // 🔁 retour au tri par défaut
+    setActiveButton(".sort-controls button", null);
+  } else {
+    currentSort = type;
+    setActiveButton(".sort-controls button", btn);
+  }
+
+  applyView();
+}
+
+
+
+function getRankValue(rankString) {
+  if (!rankString) return 0;
+
+  const baseRank = rankString
+    .toLowerCase()
+    .replace(/[^a-z]/g, ""); // enlève chiffres, espaces, I, IV, etc
+
+  const map = {
+    iron: 1,
+    bronze: 2,
+    silver: 3,
+    gold: 4,
+    platinum: 5,
+    emerald: 6,
+    diamond: 7,
+    master: 8,
+    grandmaster: 9,
+    challenger: 10
+  };
+
+  return map[baseRank] ?? 0;
+}
+function parseRank(rankString) {
+  if (!rankString || rankString.toLowerCase() === "unranked") {
+    return { tier: 0, division: 0 };
+  }
+
+  const parts = rankString.toLowerCase().split(" ");
+  const tier = TIER_ORDER[parts[0]] ?? 0;
+  const division = DIVISION_ORDER[parts[1]?.toLowerCase()] ?? 0;
+
+  return { tier, division };
+}
+function resetFilters() {
+  currentTeam = null;
+  currentRole = null;
+  currentSort = null;
+
+  document.querySelectorAll("button.active").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  document.getElementById("roleFilters").classList.remove("open");
+  applyView();
+}
+
+function setActiveButton(groupSelector, activeButton) {
+  document.querySelectorAll(groupSelector).forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  if (activeButton) {
+    activeButton.classList.add("active");
+  }
+}
+
+
+refresh();
+</script>
+
+</body>
+</html>
