@@ -93,6 +93,12 @@ const TEAM_NAMES = {
   Blue: "Maxa",
   Green: "Slarix"
 };
+const TEAM_PENALTIES = {
+  Red: -200,
+  Blue: 0,
+  Green: 0
+};
+
 const TIER_ORDER = {
   iron: 1,
   bronze: 2,
@@ -176,14 +182,16 @@ function renderTeams(players) {
         ? Math.round((data.wins / data.games) * 100)
         : 0;
 
-      return {
-        team,
-        captain: data.captain,
-        score: data.score,
-        games: data.games,
-        wr,
-        count: data.count
-      };
+      const penalty = TEAM_PENALTIES[team] || 0;
+return {
+  team,
+  captain: data.captain,
+  score: data.score + penalty,
+  games: data.games,
+  wr,
+  count: data.count
+};
+
     })
     .sort((a, b) => b.score - a.score);
 
