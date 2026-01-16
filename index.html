@@ -118,7 +118,7 @@ const DIVISION_ORDER = {
 /* ========================= */
 async function refresh() {
   try {
-    const res = await fetch("http://localhost:3000/api/refresh");
+    const res = await fetch("https://soloqchallenge-api.onrender.com/api/refresh");
 
     if (!res.ok) {
       throw new Error("Erreur API");
