@@ -688,54 +688,80 @@ button.active {
 .podium-third {
   box-shadow: 0 0 25px rgba(180, 83, 9, 0.5);
 }
-/* ========================= */
-/* 📱 VERSION MOBILE */
-/* ========================= */
+/* ===================== */
+/* 📱 MOBILE VERSION */
+/* ===================== */
 @media (max-width: 768px) {
 
-  /* Cache l'entête du tableau */
   .table-header {
     display: none;
   }
 
-  /* Chaque joueur devient une carte */
   .player-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 12px;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 16px;
   }
 
-  /* Ligne du joueur */
   .player-info {
-    width: 100%;
+    flex-direction: row;
+    align-items: center;
   }
 
-  /* Cache éléments secondaires */
-  .stats,
-  .lp-container,
-  .dpm-link {
-    display: none;
-  }
-
-  /* Nom + rôle bien visibles */
   .player-line {
-    display: flex;
     flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .player-name {
+    font-size: 16px;
+  }
+
+  .player-role {
+    font-size: 11px;
+  }
+
+  .team-label {
+    font-size: 12px;
+  }
+
+  .rank {
+    justify-content: flex-start;
     gap: 8px;
   }
 
-  /* Boutons plus gros pour le doigt */
-  .controls button {
-    padding: 10px 14px;
-    font-size: 14px;
-  }
-
-  /* Classement équipes */
-  .team-row {
+  .lp-container {
     flex-direction: column;
     align-items: flex-start;
     gap: 6px;
+  }
+
+  .stats {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .stat span {
+    font-size: 14px;
+  }
+
+  .player-progress {
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controls button {
+    width: 100%;
+  }
+
+  .team-row {
+    grid-template-columns: 1fr;
+    text-align: left;
   }
 }
 
