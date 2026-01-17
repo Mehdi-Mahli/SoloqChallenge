@@ -53,9 +53,9 @@
 
   <div class="team-filters">
     <button onclick="filterTeam(null, this)">Tous</button>
-    <button onclick="filterTeam('Red', this)">Kaminari</button>
-    <button onclick="filterTeam('Blue', this)">Maxa</button>
-    <button onclick="filterTeam('Green', this)">Slarix</button>
+    <button onclick="filterTeam('Yellow', this)">Kaminari</button>
+    <button onclick="filterTeam('Red', this)">Maxa</button>
+    <button onclick="filterTeam('Blue', this)">Slarix</button>
   </div>
 <button onclick="resetFilters()" class="reset-btn">
   🔄 Réinitialiser
@@ -89,14 +89,14 @@
 /* 🧠 MAPPING ÉQUIPES */
 /* ========================= */
 const TEAM_NAMES = {
-  Red: "Kaminari",
-  Blue: "Maxa",
-  Green: "Slarix"
+  Yellow: "Kaminari",
+  Red: "Maxa",
+  Blue: "Slarix"
 };
 const TEAM_PENALTIES = {
-  Red: 0,
-  Blue: 0,
-  Green: 0
+  Yellow: 0, // Kaminari
+  Red: 0,    // Maxa
+  Blue: 0    // Slarix
 };
 
 const TIER_ORDER = {
@@ -454,5 +454,3 @@ refresh();
 
 </body>
 </html>
-
-

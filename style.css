@@ -166,20 +166,25 @@ h2 {
 
 
 /* ================= TEAM BACKGROUNDS ================= */
+/* 🟡 Kaminari */
+.team-Yellow {
+  background: linear-gradient(90deg, #2a250b, #1f1a05);
+  border-left: 6px solid #facc15;
+}
+
+/* 🔴 Maxa */
 .team-Red {
-  background: linear-gradient(90deg, #3a0b0b, #3a0b0b);
+  background: linear-gradient(90deg, #3a0b0b, #1f0505);
   border-left: 6px solid #ef4444;
 }
 
+/* 🔵 Slarix */
 .team-Blue {
-  background: linear-gradient(90deg, #0b1d3a, #0b1d3a);
+  background: linear-gradient(90deg, #0b1d3a, #050f1f);
   border-left: 6px solid #3b82f6;
 }
 
-.team-Green {
-  background: linear-gradient(90deg, #0b2a1a, #0b2a1a);
-  border-left: 6px solid #22c55e;
-}
+
 
 /* ================= PLAYER INFO ================= */
 .player-info {
@@ -207,9 +212,9 @@ h2 {
 }
 
 /* ================= TEAM TEXT COLORS ================= */
+.team-text-Yellow { color: #facc15; }
 .team-text-Red { color: #ef4444; }
 .team-text-Blue { color: #3b82f6; }
-.team-text-Green { color: #22c55e; }
 
 /* ================= RANK ================= */
 .rank-text {
