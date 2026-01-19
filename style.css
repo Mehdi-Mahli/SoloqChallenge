@@ -773,6 +773,9 @@ button.active {
     text-align: left;
   }
 }
+.team-Blue {
+  background: red !important;
+}
 
 
 
