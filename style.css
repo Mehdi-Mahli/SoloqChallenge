@@ -180,9 +180,8 @@ h2 {
 
 /* 🔵 Slarix */
 .team-Blue {
-  background: linear-gradient(90deg, #071e1e, #041313);
+  background: linear-gradient(90deg, #063a3a, #021f1f);
   border-left: 6px solid #0de8e8;
-  box-shadow: 0 0 30px rgba(13, 232, 232, 0.35);
 }
 
 
@@ -774,7 +773,7 @@ button.active {
   }
 }
 .team-Blue {
-  background: red !important;
+  background: #0de8e8 !important;
 }
 
 
