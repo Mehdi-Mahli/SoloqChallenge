@@ -131,26 +131,32 @@ async function refresh() {
       throw new Error("Erreur API");
     }
 
-    const players = await res.json();
-const now = new Date();
+    const response = await res.json();
+
+    const players = response.data;
+
+    // ✅ ON UTILISE LE TEMPS SERVEUR
+    lastRefreshTime = response.lastUpdate;
 document.getElementById("lastUpdate").textContent =
   "Dernière mise à jour : " +
-  now.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+  new Date(lastRefreshTime).toLocaleTimeString("fr-FR", {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+
 
     window.lastPlayers = players;
 
-	lastRefreshTime = Date.now(); 
-	updateCountdown();
-
-applyView();
-renderTeams(players);
-
-
+    applyView();
+    renderTeams(players);
+    updateCountdown();
 
   } catch (e) {
     console.error("Erreur front :", e);
   }
 }
+
+
 
 /* ========================= */
 /* 🏆 CLASSEMENT ÉQUIPES */
@@ -231,10 +237,6 @@ return {
 /* ========================= */
 let lastRefreshTime = 0;
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
-lastRefreshTime = Date.now();
-
-
-
 
 /* ========================= */
 /* 🎮 CLASSEMENT JOUEURS */
