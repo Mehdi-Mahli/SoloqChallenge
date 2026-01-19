@@ -30,6 +30,7 @@
 
     <h2>🎮 Leaderboard joueurs</h2>
 <div id="lastUpdate" class="last-update"></div>
+<div id="nextUpdate" class="last-update"></div>
 
 <div class="controls">
 
@@ -136,10 +137,14 @@ document.getElementById("lastUpdate").textContent =
   "Dernière mise à jour : " +
   now.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
 
-    window.lastPlayers = players; // 👈 super important
+    window.lastPlayers = players;
 
-    applyView();
-    renderTeams(players);
+	lastRefreshTime = Date.now(); 
+	updateCountdown();
+
+applyView();
+renderTeams(players);
+
 
 
   } catch (e) {
@@ -221,6 +226,11 @@ return {
     `;
   });
 }
+/* ========================= */
+/* ⏳ TIMER MAJ */
+/* ========================= */
+let lastRefreshTime = 0;
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
 
 
@@ -454,6 +464,26 @@ setInterval(() => {
 
 
 refresh();
+setInterval(updateCountdown, 1000);
+
+function updateCountdown() {
+  const el = document.getElementById("nextUpdate");
+  if (!lastRefreshTime) return;
+
+  const now = Date.now();
+  const remaining = CACHE_DURATION - (now - lastRefreshTime);
+
+  if (remaining <= 0) {
+    el.textContent = "🔄 Mise à jour imminente…";
+    return;
+  }
+
+  const minutes = Math.floor(remaining / 60000);
+  const seconds = Math.floor((remaining % 60000) / 1000);
+
+  el.textContent = `⏳ Prochaine mise à jour dans ${minutes}m ${seconds}s`;
+}
+
 </script>
 
 </body>
