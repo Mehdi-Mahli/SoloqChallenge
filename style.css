@@ -180,8 +180,12 @@ h2 {
 
 /* 🔵 Slarix */
 .team-Blue {
-  background: linear-gradient(90deg, #0b1d3a, #050f1f);
+  background: linear-gradient(90deg, #071e1e, #041313);
   border-left: 6px solid #0de8e8;
+  box-shadow: 0 0 30px rgba(13, 232, 232, 0.35);
+}
+
+
 }
 
 
