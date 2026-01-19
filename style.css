@@ -180,9 +180,10 @@ h2 {
 
 /* 🔵 Slarix */
 .team-Blue {
-  background: linear-gradient(90deg, #063a3a, #021f1f);
-  border-left: 6px solid #0de8e8;
+  background: linear-gradient(90deg, #0b2a4a, #071a2f);
+  border-left: 6px solid #3b82f6;
 }
+
 
 
 
@@ -214,7 +215,7 @@ h2 {
 /* ================= TEAM TEXT COLORS ================= */
 .team-text-Yellow { color: #facc15; }
 .team-text-Red { color: #ef4444; }
-.team-text-Blue { color: #0de8e8; }
+.team-text-Blue {color: #3b82f6;}
 
 /* ================= RANK ================= */
 .rank-text {
@@ -768,9 +769,6 @@ button.active {
     grid-template-columns: 1fr;
     text-align: left;
   }
-}
-.team-Blue {
-  background: #0de8e8 !important;
 }
 
 
